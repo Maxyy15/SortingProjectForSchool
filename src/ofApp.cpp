@@ -11,7 +11,7 @@ bool isQuickTrue = false;
 float duration = 1000;
 float startTime;
 
-
+//This was a combination of me and ChatGPT, but I did most of the work
 void BubbleSorting(vector<int>& arr)
 {
 	int length = arr.size();
@@ -38,6 +38,9 @@ void BubbleSorting(vector<int>& arr)
 	}
 }
 
+//The merge sort was adapted from this youtube video, but it's basically a 1 to 1 copy
+//I want to eventually remake this in my own unique code
+//https://www.youtube.com/watch?v=3j0SWDX4AtU
 void Merge(vector<int>& leftArr, vector<int>& rightArr, vector<int>& arr)
 {
 	int leftSize = arr.size() / 2;
@@ -103,10 +106,64 @@ void MergeSorting(vector<int>& arr)
 	isMergeTrue = false;
 }
 
-void QuickSorting(vector<int>& arr)
+//The quick sort was adapted from this youtube video
+//I want to eventually remake this in my own unique code
+//https://www.youtube.com/watch?v=Vtckgz38QHs
+int Partition(vector<int>& arr, int startIndex, int endIndex)
 {
+	int pivot = arr[endIndex];
+	int i = startIndex - 1;
 
+	for (int j = startIndex; j <= endIndex - 1; j++)
+	{
+		if (arr[j] < pivot)
+		{
+			i++;
+			int temp = arr[i];
+			arr[i] = arr[j];
+			arr[j] = temp;
+		}
+	}
+	i++;
+	int temp = arr[i];
+	arr[i] = arr[endIndex];
+	arr[endIndex] = temp;
+
+	return i;
 }
+void QuickSorting(vector<int>& arr, int startIndex, int endIndex)
+{
+	if (endIndex <= startIndex) return;
+
+	int pivot = Partition(arr, startIndex, endIndex);
+	QuickSorting(arr, startIndex, pivot - 1);
+	QuickSorting(arr, pivot + 1, endIndex);
+
+	isQuickTrue = false;
+}
+
+//The insertion sort was adapted from this youtube video
+//I want to eventually remake this in my own unique code
+//https://www.youtube.com/watch?v=8mJ-OhcfpYg
+void InsertionSorting(vector<int>& arr)
+{
+	for (int i = 1; i < arr.size(); i++)
+	{
+		int temp = arr[i];
+		int j = i - 1;
+
+		while (j >= 0 && arr[j] > temp)
+		{
+			arr[j + 1] = arr[j];
+			j--;
+		}
+		arr[j + 1] = temp;
+	}
+	isInsertionTrue = false;
+}
+
+
+
 
 //--------------------------------------------------------------
 void ofApp::setup()
@@ -129,12 +186,12 @@ void ofApp::update()
 
 	if (isInsertionTrue == true)
 	{
-
+		InsertionSorting(arr);
 	}
 
 	if (isQuickTrue == true)
 	{
-
+		QuickSorting(arr, 0, arr.size() - 1);
 	}
 
 }
