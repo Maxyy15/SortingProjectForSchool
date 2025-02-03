@@ -103,6 +103,10 @@ void MergeSorting(vector<int>& arr)
 	isMergeTrue = false;
 }
 
+void QuickSorting(vector<int>& arr)
+{
+
+}
 
 //--------------------------------------------------------------
 void ofApp::setup()
@@ -122,6 +126,17 @@ void ofApp::update()
 	{
 		MergeSorting(arr);
 	}
+
+	if (isInsertionTrue == true)
+	{
+
+	}
+
+	if (isQuickTrue == true)
+	{
+
+	}
+
 }
 
 //--------------------------------------------------------------
